@@ -60,7 +60,7 @@ def get_wells_geojson_from_db() -> FeatureCollection:
 
     # try from cache
     c = cache.get("wells")
-    if c is not None:
+    if c is not None and len(c) > 0:
         print("serving from cache")
         return c
 
@@ -111,6 +111,7 @@ def get_wells_geojson_from_db() -> FeatureCollection:
         if cursor is not None:
             cursor.close()
 
-    cache.set("wells", fc)
+    if len(fc) > 1:
+        cache.set("wells", fc)
 
     return fc
