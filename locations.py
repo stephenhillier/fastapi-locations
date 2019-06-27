@@ -1,4 +1,5 @@
 import os
+from fastapi import HTTPException
 from geojson import FeatureCollection, Feature, Point
 import shapely.wkt
 import time
