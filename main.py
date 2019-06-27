@@ -12,7 +12,7 @@ from geoalchemy2.shape import to_shape
 from sqlalchemy.orm import Session
 
 from database import SessionLocal
-from locations import get_wells
+from locations import get_wells, get_wells_geojson_from_db
 
 app = FastAPI()
 
@@ -42,5 +42,12 @@ async def db_session_middleware(request: Request, call_next):
 @app.get("/gwells/api/v2/fa-locations", response_model=FeatureCollection)
 def read_locations(db: Session = Depends(get_db)):
     wells = get_wells(db)
+
+    return wells
+
+
+@app.get("/gwells/api/v3/fa-locations", response_model=FeatureCollection)
+def read_locations(db: Session = Depends(get_db)):
+    wells = get_wells_geojson_from_db()
 
     return wells

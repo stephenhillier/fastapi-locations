@@ -14,9 +14,16 @@ services:
       - '8000:8000'
     depends_on: 
       - db
+    networks:
+      - fastapi
   db:
+    networks:
+      - fastapi
     image: mdillon/postgis:11
     env_file:
       - env-backend.env
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
+networks:
+  fastapi:
+    driver: bridge
