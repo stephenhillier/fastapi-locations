@@ -39,7 +39,7 @@ async def db_session_middleware(request: Request, call_next):
     return response
 
 
-@app.get("/gwells/api/v2/fa-locations/", response_model=FeatureCollection)
+@app.get("/gwells/api/v2/fa-locations", response_model=FeatureCollection)
 def read_locations(db: Session = Depends(get_db)):
     wells = get_wells(db)
     points = []
