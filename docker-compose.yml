@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  backend: 
+    build: 
+      context: "."
+      dockerfile: dev.Dockerfile
+      args: 
+        env: dev
+    volumes:
+      - .:/app
+    env_file:
+      - env-backend.env
+    ports:
+      - '8000:8000'
+    depends_on: 
+      - db
+  db:
+    image: mdillon/postgis:11
+    env_file:
+      - env-backend.env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata

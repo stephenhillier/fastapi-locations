@@ -42,13 +42,5 @@ async def db_session_middleware(request: Request, call_next):
 @app.get("/gwells/api/v2/fa-locations", response_model=FeatureCollection)
 def read_locations(db: Session = Depends(get_db)):
     wells = get_wells(db)
-    points = []
 
-    for well in wells:
-        pt = Point(get_coordinates_from_geom(well.geom))
-        feature = Feature(geometry=pt, properties={"n": well.well_tag_number})
-        points.append(feature)
-
-    fc = FeatureCollection(points)
-
-    return fc
+    return wells
