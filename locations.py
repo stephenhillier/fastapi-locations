@@ -104,6 +104,7 @@ def get_wells_geojson_from_db() -> FeatureCollection:
 
     except (Exception, psycopg2.Error) as error:
         print("Error retrieving data", error)
+        raise HTTPException(status_code=500, detail="Server error")
     finally:
         if conn is not None:
             conn.close()
