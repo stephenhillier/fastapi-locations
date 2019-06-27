@@ -1,8 +1,5 @@
 import os
-from typing import List
-from sqlalchemy.orm import Session
 from geojson import FeatureCollection, Feature, Point
-from models import Well
 import shapely.wkt
 import time
 import psycopg2
@@ -22,7 +19,7 @@ def get_coordinates_from_geom(geom):
     return point
 
 
-def get_wells(db: Session) -> FeatureCollection:
+def get_wells() -> FeatureCollection:
     """ retrieves all locations from the database """
 
     points = []
