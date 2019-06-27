@@ -7,10 +7,10 @@ import shapely.wkt
 
 import psycopg2
 
-DBUSER = os.getenv("DBUSER") or "gwells",  # defaults for local dev
-DBPASS = os.getenv("DBPASS") or "",
-DBHOST = os.getenv("DBHOST") or "localhost",
-DBNAME = os.getenv("DBNAME") or "gwells"
+DBUSER = os.getenv("DBUSER")  # defaults for local dev
+DBPASS = os.getenv("DBPASS")
+DBHOST = os.getenv("DBHOST")
+DBNAME = os.getenv("DBNAME")
 
 
 def get_coordinates_from_geom(geom):
@@ -28,7 +28,7 @@ def get_wells(db: Session) -> FeatureCollection:
 
     try:
         print("getting wells from db")
-        conn = psycopg2.connect(user="gwells", password="test_pw", host="db", port=5432, database="gwells")
+        conn = psycopg2.connect(user=DBUSER, password=DBPASS, host=DBHOST, port=5432, database=DBNAME)
         cursor = conn.cursor()
         query = """ SELECT well_tag_number, ST_AsText(geom) as geom FROM well where geom is not null; """
         cursor.execute(query)
