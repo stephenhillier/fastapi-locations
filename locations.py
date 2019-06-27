@@ -84,7 +84,7 @@ def get_wells_geojson_from_db() -> FeatureCollection:
                     where geom is not null
                 ) as f
 
-            ) as fc;            
+            ) as fc;
         """
         cursor.execute(query)
         records = cursor.fetchall()
