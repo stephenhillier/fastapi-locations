@@ -18,6 +18,10 @@ Visit the auto-generated documentation at localhost:8000/docs.
 
 ## Methods:
 
+### SQLAlchemy/Geoalchemy2
+
+> 30 seconds (timeout).
+
 ### Psycopg2 and forming GeoJSON using python `geojson` package
 
   * [locations.py get_wells()](https://github.com/stephenhillier/fastapi-locations/blob/master/locations.py#L25-L56)
