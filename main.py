@@ -13,8 +13,11 @@ from sqlalchemy.orm import Session
 
 from database import SessionLocal
 from locations import get_wells, get_wells_geojson_from_db
+from starlette.middleware.gzip import GZipMiddleware
 
 app = FastAPI()
+
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
 def get_coordinates_from_geom(geom: WKTElement):

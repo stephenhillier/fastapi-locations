@@ -4,8 +4,11 @@ from sqlalchemy.orm import Session
 from geojson import FeatureCollection, Feature, Point
 from models import Well
 import shapely.wkt
-
+import time
 import psycopg2
+from cacheout import Cache
+
+cache = Cache(maxsize=256000000, ttl=120, timer=time.time, default=None)
 
 DBUSER = os.getenv("DBUSER")  # defaults for local dev
 DBPASS = os.getenv("DBPASS")
@@ -55,6 +58,12 @@ def get_wells(db: Session) -> FeatureCollection:
 
 def get_wells_geojson_from_db() -> FeatureCollection:
 
+    # try from cache
+    c = cache.get("wells")
+    if c is not None:
+        print("serving from cache")
+        return c
+
     fc = ""
     conn = None
     cursor = None
@@ -101,5 +110,7 @@ def get_wells_geojson_from_db() -> FeatureCollection:
 
         if cursor is not None:
             cursor.close()
+
+    cache.set("wells", fc)
 
     return fc

@@ -44,3 +44,4 @@ uvicorn==0.7.2
 uvloop==0.12.2
 websockets==7.0
 wrapt==1.11.1
+cacheout==0.11.1
